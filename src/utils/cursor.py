@@ -18,6 +18,17 @@ def move(x, y):
     win32api.SetCursorPos((x, y))
 
 
+def move_from(fx, fy, tx, ty):
+    dx = tx - fx
+    dy = ty - fy
+    moves = 50
+    hx = float(dx) / moves
+    hy = float(dy) / moves
+    for i in range(moves):
+        move(fx + int(i * hx), fy + int(i * hy))
+        delay(0.001)
+
+
 def move_click(x, y, d=0.01):
     move(x, y)
     delay(d)

@@ -4,9 +4,13 @@ import time
 from scenario import *
 import win32api, win32con
 from consts import *
+import random as rnd
 
 root = Tk()
 root.geometry('+{0}+{1}'.format(WINDOW_START_POSITION[0], WINDOW_START_POSITION[1]))
+
+titleE = Label(root, text="MishanyaAI")
+titleE.pack()
 
 is_started = False
 main_thr = Thread()
@@ -42,9 +46,7 @@ def stop():
 
 
 def foo():
-    x = int(input1.get())
-    y = int(input2.get())
-    win32api.SetCursorPos((x, y))
+    define_context()
 
 
 startB = Button(root, text="Start", command=start, width=15, height=5)

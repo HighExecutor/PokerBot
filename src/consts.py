@@ -59,38 +59,10 @@ else:
 
     ACTIVE_PLAYERS_PING = [(222, 351), (222, 120), (618, 33), (1018, 121), (1018, 351)]
 
-    SUIT_COLORS = dict()
-    # spades
-    SUIT_COLORS[(0, 0, 0)] = 0
-    # clubs
-    SUIT_COLORS[(32, 128, 0)] = 1
-    # diamonds
-    SUIT_COLORS[(0, 0, 237)] = 2
-    # hearts
-    SUIT_COLORS[(200, 8, 8)] = 3
-    SUIT_COLORS[(200, 8, 9)] = 3
-    SUIT_COLORS[(200, 9, 9)] = 3
-    SUIT_COLORS[(200, 9, 8)] = 3
-
-    CARD_VALUES = dict()
-    CARD_VALUES['2'] = 2
-    CARD_VALUES['3'] = 3
-    CARD_VALUES['4'] = 4
-    CARD_VALUES['5'] = 5
-    CARD_VALUES['6'] = 6
-    CARD_VALUES['7'] = 7
-    CARD_VALUES['8'] = 8
-    CARD_VALUES['9'] = 9
-    CARD_VALUES['10'] = 10
-    CARD_VALUES['J'] = 11
-    CARD_VALUES['Q'] = 12
-    CARD_VALUES['K'] = 13
-    CARD_VALUES['A'] = 14
-
     # Card value recognition
     x_card = []
     y_card = []
-    from sklearn.svm import SVC, NuSVC
+    from sklearn.svm import SVC
 
     CARD_IMG = SVC(kernel='linear')
     for i in range(13):

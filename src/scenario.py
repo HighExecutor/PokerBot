@@ -11,12 +11,6 @@ from utils.digrec import *
 from pytesser import pytesser as tesseract
 
 
-def test(i):
-    print(i)
-    img = ImageGrab.grab()
-    img.save('temp/' + str(i) + ".png")
-
-
 # Main
 def main_scenario():
     sit_on_table()
@@ -35,8 +29,8 @@ def define_context():
     # cards
     left_card_suit_clr = get_pixel(screen, MY_CARD_LEFT_SUIT[0], MY_CARD_LEFT_SUIT[1])
     right_card_suit_clr = get_pixel(screen, MY_CARD_RIGHT_SUIT[0], MY_CARD_RIGHT_SUIT[1])
-    left_card_suit = suit_by_clr(left_card_suit_clr)#SUIT_COLORS[left_card_suit_clr]
-    right_card_suit = suit_by_clr(right_card_suit_clr)#SUIT_COLORS[right_card_suit_clr]
+    left_card_suit = suit_by_clr(left_card_suit_clr)
+    right_card_suit = suit_by_clr(right_card_suit_clr)
     print(left_card_suit_clr)
     print(right_card_suit_clr)
     left_img = card_cut(screen, MY_CARD_LEFT_VAL)
@@ -52,22 +46,6 @@ def define_context():
     print("My bank = " + str(bank))
 
     # bid
-    # x, y = MY_CHIPS[0], MY_CHIPS[1]
-    # move(x-50, y-50)
-    # click()
-    # move_from(x - 50, y - 50, x, y)
-    # delay(1.5)
-    # bid_screen = print_screen().convert("L") # TODO optimize
-    # # bid_text = cut_rec_text(screen, (BID[0], BID[1], BID[2], BID[3]))
-    # bid_img = img_cut(bid_screen, (MY_BID[0], MY_BID[1], MY_BID[2], MY_BID[3]))
-    # bid_img.save("temp\\my_bid.png")
-    # bid_text = cut_rec_text(bid_screen, (MY_BID[0], MY_BID[1], MY_BID[2], MY_BID[3]))
-    # try:
-    #     bid_test = int(bid_text)
-    #     bid = bid_test
-    # except Exception:
-    #     pass
-    # print("My bid = " + str(bid))
     bid_img = img_cut(screen, (MY_BID[0], MY_BID[1], MY_BID[2], MY_BID[3]))
     bid_img.save("temp\\my_bid.png")
     bid = bid_rec(bid_img)
@@ -98,19 +76,19 @@ def define_context():
     if stage > 0:
         for f in range(3):
             flop_card_suit_clr = get_pixel(screen, FLOP_CARDS_SUIT[f][0], FLOP_CARDS_SUIT[f][1])
-            flop_card_suit = suit_by_clr(flop_card_suit_clr)#SUIT_COLORS[flop_card_suit_clr]
+            flop_card_suit = suit_by_clr(flop_card_suit_clr)
             flop_img = card_cut(screen, FLOP_CARDS_VAL[f])
             flop_card_val = CARD_IMG.predict(img_to_arr(flop_img))
             table_cards.append((flop_card_val, flop_card_suit))
         if stage > 1:
             turn_card_suit_clr = get_pixel(screen, TURN_CARD_SUIT[0], TURN_CARD_SUIT[1])
-            turn_card_suit = suit_by_clr(turn_card_suit_clr)#SUIT_COLORS[turn_card_suit_clr]
+            turn_card_suit = suit_by_clr(turn_card_suit_clr)
             turn_img = card_cut(screen, TURN_CARD_VAL)
             turn_card_val = CARD_IMG.predict(img_to_arr(turn_img))
             table_cards.append((turn_card_val, turn_card_suit))
         if stage > 2:
             river_card_suit_clr = get_pixel(screen, RIVER_CARD_SUIT[0], RIVER_CARD_SUIT[1])
-            river_card_suit = suit_by_clr(river_card_suit_clr)#SUIT_COLORS[river_card_suit_clr]
+            river_card_suit = suit_by_clr(river_card_suit_clr)
             river_img = card_cut(screen, RIVER_CARD_VAL)
             river_card_val = CARD_IMG.predict(img_to_arr(river_img))
             table_cards.append((river_card_val, river_card_suit))
@@ -155,35 +133,6 @@ def define_context():
         enemy_bid_img.save("temp\\{0}_bid_img.png".format(e))
         enemy_bid = bid_rec(enemy_bid_img)
         enemy_bids.append(enemy_bid)
-        # enemy_bid = 0
-        # x, y = ENEMY_CHIPS[e][0], ENEMY_CHIPS[e][1]
-        # move(x, y)
-        # move_from(x - 50, y - 50, x, y)
-        # delay(1.5)
-        # bid_screen = print_screen().convert("L")
-        # # enemy_bid_img = img_cut(screen, (ENEMY_BIDS[e][0], ENEMY_BIDS[e][1], ENEMY_BIDS[e][2], ENEMY_BIDS[e][3]))
-        # # enemy_bid_img.save("temp\\{0}_player_bid_pre.png".format(e))
-        # # enemy_bid_img = enemy_bid_img.convert("L")
-        # # enemy_bid_img.save("temp\\{0}_player_bid_convert.png".format(e))
-        # # print(np.array(enemy_bid_img).max())
-        # # print(np.array(enemy_bid_img).min())
-        # # enemy_bid_img = enemy_bid_img.point(lambda x: 0 if x < 180 else 255)
-        # # print(np.array(enemy_bid_img).max())
-        # # print(np.array(enemy_bid_img).min())
-        # # path = "temp\\{0}_player_bid.png".format(e)
-        # # enemy_bid_img.save(path)
-        # enemy_bid_img = img_cut(bid_screen, (ENEMY_BIDS[e][0], ENEMY_BIDS[e][1], ENEMY_BIDS[e][2], ENEMY_BIDS[e][3]))
-        # enemy_bid_img.save("temp\\{0}_enemy_bid.png".format(e))
-        # enemy_bid_text = cut_rec_text(bid_screen, (
-        # ENEMY_BIDS[e][0], ENEMY_BIDS[e][1], ENEMY_BIDS[e][2], ENEMY_BIDS[e][3]))
-        # # enemy_bid_text = rec_text(path)
-        # try:
-        #     enemy_bid_test = int(enemy_bid_text)
-        #     enemy_bid = enemy_bid_test
-        # except Exception:
-        #     pass
-        # print("Enemy bid = " + str(bid))
-
 
     print("Dealer = " + str(dealer))
     print("Hand players = " + str(hand_players))
@@ -212,7 +161,6 @@ def define_context():
     debug_log.write("Queue place = {0}\n".format(queue_place))
     debug_log.close()
     return stage, cards, bank, pot, bid, table_cards, active_players, hand_players, enemy_banks, dealer, queue_place
-
 
 
 def wait_for_action():
